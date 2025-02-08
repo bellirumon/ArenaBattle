@@ -19,8 +19,11 @@ public class CameraFollow : MonoBehaviour
         //define the min and max bounds for the camera
         Bounds arenaBounds = arena.GetArenaBounds();
 
-        Debug.Log(arenaBounds.center);
-        Debug.Log(arenaBounds.extents);
+        minX = arenaBounds.center.x - arenaBounds.extents.x;
+        maxX = -minX;
+
+        minY = arenaBounds.center.y - arenaBounds.extents.y;
+        maxY = -minY;
 
     }
 
@@ -29,6 +32,10 @@ public class CameraFollow : MonoBehaviour
     {
         //define the target position
         Vector3 targetPos = target.position + offset;
+
+        //constraint the camera within the arena bounds
+        targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
+        targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
 
         //smoothly move the camera towards the target position
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelocity, damping);

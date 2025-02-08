@@ -249,7 +249,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 1
   orthographic size: 5
@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214bd858a06716d41a572ac39ea513c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arena: {fileID: 2051013402}
   target: {fileID: 2033167781}
   offset: {x: 0, y: 0, z: -10}
   damping: 0
@@ -633,7 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  moveSpeed: 3
+  moveSpeed: 8
 --- !u!1 &2051013395
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +649,7 @@ GameObject:
   - component: {fileID: 2051013400}
   - component: {fileID: 2051013399}
   - component: {fileID: 2051013398}
+  - component: {fileID: 2051013402}
   m_Layer: 0
   m_Name: Temp Arena Bg
   m_TagString: Wall
@@ -701,7 +703,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -759,7 +761,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 10, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -804,7 +806,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 10, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -849,7 +851,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 10, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -894,7 +896,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 10, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -902,6 +904,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2051013402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051013395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7093adbbd6fd50042a9d079a9acf022b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
