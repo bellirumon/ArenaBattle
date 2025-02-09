@@ -10,19 +10,26 @@ public class CameraFollow : MonoBehaviour
 
     Vector3 currentVelocity = Vector3.zero;
 
+    float camWidth; 
+    float camHeight; 
+
     float minX; float minY;
     float maxX; float maxY;
 
 
     void Start()
     {
+        //get the camera width and height
+        camHeight = Camera.main.orthographicSize;
+        camWidth = camHeight * Camera.main.aspect;
+
         //define the min and max bounds for the camera
         Bounds arenaBounds = arena.GetArenaBounds();
 
-        minX = arenaBounds.center.x - arenaBounds.extents.x;
+        minX = (arenaBounds.center.x - arenaBounds.extents.x) + camWidth;
         maxX = -minX;
 
-        minY = arenaBounds.center.y - arenaBounds.extents.y;
+        minY = (arenaBounds.center.y - arenaBounds.extents.y) + camHeight;
         maxY = -minY;
 
     }
