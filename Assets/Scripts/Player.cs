@@ -8,9 +8,29 @@ public class Player : MonoBehaviour
     [SerializeField] int moveSpeed;
     public int MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
 
-
     Vector2 inputDir = Vector2.zero;
     Vector3 moveDir = Vector3.zero;
+
+    float minX; float maxX;
+    float minY; float maxY;
+
+    float playerRadius;
+
+
+    void Start()
+    {
+        //compute the bounds for the player
+        Bounds arenaBounds = GlobalData.ArenaBounds;
+
+        playerRadius = GetComponent<CircleCollider2D>().radius * transform.lossyScale.x;
+
+        minX = (arenaBounds.center.x - arenaBounds.extents.x) + playerRadius;
+        maxX = -minX;
+
+        minY = (arenaBounds.center.y - arenaBounds.extents.y) + playerRadius;
+        maxY = -minY;
+
+    }
 
 
     void Update() 
@@ -45,7 +65,13 @@ public class Player : MonoBehaviour
     {
         moveDir = new(inputDir.x, inputDir.y, 0f);
 
-        transform.position += moveSpeed * Time.deltaTime * moveDir;
+        //constraint the player within set bounds 
+        Vector3 newPosition = transform.position + (moveSpeed * Time.deltaTime * moveDir);
+
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+
+        transform.position = newPosition;
     }
 
 

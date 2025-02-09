@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Arena : MonoBehaviour
 {
-    
-    public Bounds GetArenaBounds()
-    {
-        return GetComponent<SpriteRenderer>().bounds;
-    }
 
+    void Awake()
+    {
+        GlobalData.SetArenaBounds(GetComponent<SpriteRenderer>().bounds);    
+    }
 
 }

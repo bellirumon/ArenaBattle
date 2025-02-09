@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class Enemy : MonoBehaviour
 
 
     [SerializeField] Transform target;
+    [SerializeField] Slider hpBar;
+
+
+    void OnEnable()
+    {
+        hpBar.maxValue = hp;
+        hpBar.value = hp;
+    }
 
 
     void Update()
@@ -26,6 +35,8 @@ public class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
+
+    
 
 
 

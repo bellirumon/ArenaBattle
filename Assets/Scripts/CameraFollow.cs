@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour 
 {
-    [SerializeField] Arena arena;
 
     [SerializeField] Transform target;
     [SerializeField] Vector3 offset;
@@ -24,7 +23,7 @@ public class CameraFollow : MonoBehaviour
         camWidth = camHeight * Camera.main.aspect;
 
         //define the min and max bounds for the camera
-        Bounds arenaBounds = arena.GetArenaBounds();
+        Bounds arenaBounds = GlobalData.ArenaBounds;
 
         minX = (arenaBounds.center.x - arenaBounds.extents.x) + camWidth;
         maxX = -minX;
