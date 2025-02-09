@@ -54,7 +54,8 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject enemy = Pool.Instance.GetEnemyFromPool();
+        enemy.transform.position = spawnPos;
 
     }
 

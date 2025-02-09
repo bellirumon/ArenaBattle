@@ -24,10 +24,10 @@ public class Player : MonoBehaviour
 
         playerRadius = GetComponent<CircleCollider2D>().radius * transform.lossyScale.x;
 
-        minX = (arenaBounds.center.x - arenaBounds.extents.x) + playerRadius;
+        minX = arenaBounds.min.x + playerRadius;
         maxX = -minX;
 
-        minY = (arenaBounds.center.y - arenaBounds.extents.y) + playerRadius;
+        minY = arenaBounds.min.y + playerRadius;
         maxY = -minY;
 
     }
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
+            Pool.Instance.ReturnToPool(collision.gameObject);
         }    
     }
 

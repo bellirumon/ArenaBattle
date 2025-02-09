@@ -9,11 +9,9 @@ public class CameraFollow : MonoBehaviour
 
     Vector3 currentVelocity = Vector3.zero;
 
-    float camWidth; 
-    float camHeight; 
+    float camWidth, camHeight; 
 
-    float minX; float minY;
-    float maxX; float maxY;
+    float minX, minY, maxX, maxY;
 
 
     void Start()
@@ -25,10 +23,10 @@ public class CameraFollow : MonoBehaviour
         //define the min and max bounds for the camera
         Bounds arenaBounds = GlobalData.ArenaBounds;
 
-        minX = (arenaBounds.center.x - arenaBounds.extents.x) + camWidth;
+        minX = arenaBounds.min.x + camWidth;
         maxX = -minX;
 
-        minY = (arenaBounds.center.y - arenaBounds.extents.y) + camHeight;
+        minY = arenaBounds.min.y + camHeight;
         maxY = -minY;
 
     }
