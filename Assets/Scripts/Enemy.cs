@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public int MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
 
 
-    [SerializeField] Transform target;
+    /*[SerializeField] */Transform target;
     [SerializeField] Slider hpBar;
 
 
@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     {
         hpBar.maxValue = hp;
         hpBar.value = hp;
+
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 
