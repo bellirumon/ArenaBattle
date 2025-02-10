@@ -2,8 +2,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour 
 {
+    [SerializeField] int maxHp;
     [SerializeField] int hp;
-    public int Hp { get => hp; private set => hp = value; }
+    public int Hp 
+    { 
+        get => hp;
+        private set
+        {
+            hp = value;
+            UIManager.Instance.UpdatePlayerHpBar(hp);
+        }
+    }
 
     [SerializeField] int moveSpeed;
     public int MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
@@ -19,6 +28,10 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        //set the hp to maxHp
+        Hp = maxHp;
+        UIManager.Instance.SetPlayerHpBarToMax(maxHp);
+
         //compute the bounds for the player
         Bounds arenaBounds = GlobalData.ArenaBounds;
 
@@ -79,7 +92,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Pool.Instance.ReturnToPool(collision.gameObject);
+            //Pool.Instance.ReturnToPool(collision.gameObject);
         }    
     }
 
