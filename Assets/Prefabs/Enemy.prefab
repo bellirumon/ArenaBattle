@@ -311,9 +311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9216a4b9a9fc4d84bacfe3c285f1d7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  maxHp: 3
+  hp: 0
   moveSpeed: 3
-  target: {fileID: 7175424677163209034, guid: abb75922c4ca24b4b9bdfc84bb88a0df, type: 3}
   hpBar: {fileID: 7491326920922326559}
 --- !u!1 &5535064305593018561
 GameObject:

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour 
@@ -17,11 +18,17 @@ public class Player : MonoBehaviour
     [SerializeField] int moveSpeed;
     public int MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
 
+    [SerializeField] GameObject attackRegion;
+    [SerializeField] float attackDuration;
+    [SerializeField] float attackInterval;
+
+    Vector3 attackRegion_MaxScale;
+
+
     Vector2 inputDir = Vector2.zero;
     Vector3 moveDir = Vector3.zero;
 
-    float minX; float maxX;
-    float minY; float maxY;
+    float minX, maxX, minY, maxY;
 
     float playerRadius;
 
@@ -43,6 +50,9 @@ public class Player : MonoBehaviour
         minY = arenaBounds.min.y + playerRadius;
         maxY = -minY;
 
+        attackRegion_MaxScale = attackRegion.transform.localScale;
+
+        InvokeRepeating(nameof(DoAttack), 1f, attackInterval);
     }
 
 
@@ -88,11 +98,41 @@ public class Player : MonoBehaviour
     }
 
 
+    void DoAttack()
+    {
+        //animate the attack region 
+        StartCoroutine(PlayAttackAnim());
+    }
+
+
+    IEnumerator PlayAttackAnim()
+    {
+        //set attack region scale to 0 before starting anim
+        attackRegion.transform.localScale = Vector3.zero;
+
+        //the anim lerps the scale from 0 to max
+        float elapsedTime = 0f;
+
+        while (elapsedTime < attackDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            attackRegion.transform.localScale = Vector3.Lerp(Vector3.zero, attackRegion_MaxScale, elapsedTime/attackDuration);
+
+            yield return null;
+        }
+
+        //set attack region scale to 0 after anim ends
+        attackRegion.transform.localScale = Vector3.zero;
+
+    }
+
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //Pool.Instance.ReturnToPool(collision.gameObject);
+            Debug.Log("DMG");
         }    
     }
 
