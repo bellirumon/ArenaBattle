@@ -34,14 +34,14 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate() 
     {
-        //define the target position
+        //define the targetBody position
         Vector3 targetPos = target.position + offset;
 
         //constraint the camera within the arena bounds
         targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
         targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
 
-        //smoothly move the camera towards the target position
+        //smoothly move the camera towards the targetBody position
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelocity, damping);
     }
 

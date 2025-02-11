@@ -315,6 +315,7 @@ MonoBehaviour:
   hp: 0
   moveSpeed: 3
   hpBar: {fileID: 7491326920922326559}
+  attackInterval: 0.5
 --- !u!1 &5535064305593018561
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,8 +13,10 @@ public class Enemy : MonoBehaviour
     public int MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
 
 
-    /*[SerializeField] */Transform target;
+    [SerializeField] Transform targetBody;
+    [SerializeField] Player targetPlayerScript;
     [SerializeField] Slider hpBar;
+    [SerializeField] float attackInterval;
 
 
     void OnEnable()
@@ -23,7 +25,8 @@ public class Enemy : MonoBehaviour
         hpBar.maxValue = maxHp;
         hpBar.value = maxHp;
 
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        targetBody = GameObject.FindGameObjectWithTag("PlayerBody").transform;
+        targetPlayerScript = targetBody.GetComponentInParent<Player>();
     }
 
 
@@ -35,7 +38,7 @@ public class Enemy : MonoBehaviour
 
     void MoveTowardsPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetBody.position, moveSpeed * Time.deltaTime);
     }
 
 
@@ -44,6 +47,20 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag("PlayerAttack"))
         {
             TakeDamage(1);
+        }
+        
+        if (collision.CompareTag("PlayerBody"))
+        {
+            InvokeRepeating(nameof(TickDamage), 0f, attackInterval);
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerBody"))
+        {
+            CancelInvoke(nameof(TickDamage));
         }    
     }
 
@@ -61,10 +78,10 @@ public class Enemy : MonoBehaviour
 
     }
 
-
-
     
-
-
+    void TickDamage()
+    {
+        targetPlayerScript.TakeDamage(1);
+    }
 
 }

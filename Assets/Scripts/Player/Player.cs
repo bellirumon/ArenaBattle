@@ -18,19 +18,12 @@ public class Player : MonoBehaviour
     [SerializeField] int moveSpeed;
     public int MoveSpeed { get => moveSpeed; private set => moveSpeed = value; }
 
-    [SerializeField] GameObject attackRegion;
-    [SerializeField] float attackDuration;
-    [SerializeField] float attackInterval;
-
-    Vector3 attackRegion_MaxScale;
-
+    [SerializeField] CircleCollider2D playerBody;
 
     Vector2 inputDir = Vector2.zero;
     Vector3 moveDir = Vector3.zero;
 
     float minX, maxX, minY, maxY;
-
-    float playerRadius;
 
 
     void Start()
@@ -42,7 +35,7 @@ public class Player : MonoBehaviour
         //compute the bounds for the player
         Bounds arenaBounds = GlobalData.ArenaBounds;
 
-        playerRadius = GetComponent<CircleCollider2D>().radius * transform.lossyScale.x;
+        float playerRadius = playerBody.radius * playerBody.transform.lossyScale.x;
 
         minX = arenaBounds.min.x + playerRadius;
         maxX = -minX;
@@ -50,9 +43,6 @@ public class Player : MonoBehaviour
         minY = arenaBounds.min.y + playerRadius;
         maxY = -minY;
 
-        attackRegion_MaxScale = attackRegion.transform.localScale;
-
-        InvokeRepeating(nameof(DoAttack), 1f, attackInterval);
     }
 
 
@@ -98,43 +88,24 @@ public class Player : MonoBehaviour
     }
 
 
-    void DoAttack()
+    public void TakeDamage(int dmg)
     {
-        //animate the attack region 
-        StartCoroutine(PlayAttackAnim());
-    }
+        Hp -= dmg;
 
-
-    IEnumerator PlayAttackAnim()
-    {
-        //set attack region scale to 0 before starting anim
-        attackRegion.transform.localScale = Vector3.zero;
-
-        //the anim lerps the scale from 0 to max
-        float elapsedTime = 0f;
-
-        while (elapsedTime < attackDuration)
+        if (Hp <= 0)
         {
-            elapsedTime += Time.deltaTime;
-
-            attackRegion.transform.localScale = Vector3.Lerp(Vector3.zero, attackRegion_MaxScale, elapsedTime/attackDuration);
-
-            yield return null;
+            Time.timeScale = 0f;
+            Debug.Log("Game Over");
         }
-
-        //set attack region scale to 0 after anim ends
-        attackRegion.transform.localScale = Vector3.zero;
-
     }
 
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void Heal(int heal)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (Hp < maxHp)
         {
-            Debug.Log("DMG");
-        }    
+            Hp += heal;
+        }
     }
-
 
 }
