@@ -24,6 +24,9 @@ public class Pool : MonoBehaviour
     [SerializeField] EnemyPool enemyPool;
     [SerializeField] PowerupPool powerupPool;
 
+    [SerializeField] GameObject bossEnemy;
+
+    [SerializeField] int enemiesKilled;
 
     public GameObject GetEnemyFromPool()
     {
@@ -38,7 +41,21 @@ public class Pool : MonoBehaviour
     }
 
 
-    public void ReturnToPool(GameObject obj)
+    public void ReturnEnemyToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+        enemiesKilled++;
+
+        if (enemiesKilled >= 10)
+        {
+            //spawn the boss
+            bossEnemy.SetActive(true);
+            enemiesKilled = -100;
+        }
+    }
+
+
+    public void ReturnPowerupToPool(GameObject obj)
     {
         obj.SetActive(false);
     }

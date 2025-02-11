@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
         Hp = maxHp;
         hpBar.maxValue = maxHp;
         hpBar.value = maxHp;
+        hpBar.gameObject.SetActive(true); //just for the boss
 
         targetBody = GameObject.FindGameObjectWithTag("PlayerBody").transform;
         targetPlayerScript = targetBody.GetComponentInParent<Player>();
@@ -73,7 +74,7 @@ public class Enemy : MonoBehaviour
 
         if (Hp <= 0)
         {
-            Pool.Instance.ReturnToPool(gameObject);
+            Pool.Instance.ReturnEnemyToPool(gameObject);
         }
 
     }

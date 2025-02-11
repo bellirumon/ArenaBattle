@@ -314,8 +314,10 @@ MonoBehaviour:
   maxHp: 3
   hp: 0
   moveSpeed: 3
+  targetBody: {fileID: 0}
+  targetPlayerScript: {fileID: 0}
   hpBar: {fileID: 7491326920922326559}
-  attackInterval: 0.5
+  attackInterval: 1
 --- !u!1 &5535064305593018561
 GameObject:
   m_ObjectHideFlags: 0

@@ -108,4 +108,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    
+    public void SpeedUp(int speedIncrement)
+    {
+        MoveSpeed += speedIncrement;
+    }
+
 }
