@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pool : MonoBehaviour
@@ -24,11 +22,19 @@ public class Pool : MonoBehaviour
 
 
     [SerializeField] EnemyPool enemyPool;
+    [SerializeField] PowerupPool powerupPool;
 
 
     public GameObject GetEnemyFromPool()
     {
         return enemyPool.GetEnemyFromPool();
+    }
+
+
+    public GameObject GetPowerupFromPool()
+    {
+        PowerupType type = (PowerupType)Random.Range(0, System.Enum.GetValues(typeof(PowerupType)).Length);
+        return powerupPool.GetPowerupFromPool(type);
     }
 
 
